@@ -4,7 +4,7 @@ class PlatformInfo {
     private val platform = getPlatform()
 
     fun info(): String {
-        return "Hello, ${platform.name}!"
+        return platform.name
     }
 }
 

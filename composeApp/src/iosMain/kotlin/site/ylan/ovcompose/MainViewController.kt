@@ -1,6 +1,9 @@
+@file:Suppress("unused")
+
 package site.ylan.ovcompose
 
 import androidx.compose.ui.uikit.OnFocusBehavior
+import androidx.compose.ui.uikit.RenderBackend
 import androidx.compose.ui.window.ComposeUIViewController
 import kotlin.experimental.ExperimentalObjCName
 
@@ -14,13 +17,13 @@ fun MainViewController() = ComposeUIViewController(
     App()
 }
 
-//@OptIn(ExperimentalObjCName::class)
-//@ObjCName("SkiaRenderViewController")
-//fun SkiaRenderMainViewController() = ComposeUIViewController(
-//    configure = {
-//        onFocusBehavior = OnFocusBehavior.DoNothing
-//        renderBackend = RenderBackend.Skia
-//    }
-//) {
-//    App()
-//}
+@OptIn(ExperimentalObjCName::class)
+@ObjCName("SkiaRenderViewController")
+fun SkiaRenderMainViewController() = ComposeUIViewController(
+    configure = {
+        onFocusBehavior = OnFocusBehavior.DoNothing
+        renderBackend = RenderBackend.Skia
+    }
+) {
+    App()
+}

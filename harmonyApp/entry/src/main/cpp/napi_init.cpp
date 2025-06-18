@@ -32,11 +32,26 @@ static napi_value MainArkUIViewController(napi_env env, napi_callback_info info)
     return reinterpret_cast<napi_value>(MainArkUIViewController(env));
 }
 
+static napi_value InitResourceManager(napi_env env, napi_callback_info info) {
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+
+    auto manager = OH_ResourceManager_InitNativeResourceManager(env, args[0]);
+    auto kt = libkn_symbols();
+    kt->kotlin.root.site.ylan.ovcompose.initResourceManager(manager);
+
+    napi_value result;
+    napi_create_int32(env, 0, &result);
+    return result;
+}
+
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports) {
     androidx_compose_ui_arkui_init(env, exports);
     napi_property_descriptor desc[] = {
         {"add", nullptr, Add, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"initResourceManager", nullptr, InitResourceManager, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"MainArkUIViewController", nullptr, MainArkUIViewController, nullptr, nullptr, nullptr, napi_default, nullptr},
     };
     napi_define_properties(env, exports, sizeof(desc) / sizeof(desc[0]), desc);

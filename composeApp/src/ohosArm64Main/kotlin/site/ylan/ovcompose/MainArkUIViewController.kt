@@ -15,3 +15,8 @@ fun MainArkUIViewController(env: napi_env): napi_value {
         App()
     }
 }
+
+@OptIn(ExperimentalForeignApi::class)
+fun initResourceManager(resourceManager: NativeResourceManager) {
+    nativeResourceManager = resourceManager
+}
